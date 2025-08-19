@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -12,7 +12,72 @@
             <canvas id="matrixCanvas"></canvas>
             <div id="heroText">
                 <h1 class="t">&lt;projectSly&gt;</h1>
-                <p class="st">We make stuff.</p>
+            </div>
+        </div>
+        <div id="about" class="section">
+            <div>
+                <h1 class="t">About us ~~~~~~</h1>
+                <h1 class="st">
+                    projectsly is a group of multiple projects by
+                    GalacticNuclei.<br /><br />
+                    The aim of this "group" is to create open-source projects
+                    to<br />
+                    help you when you get bored :)<br /><br />
+                    I get absolutely no money from this, hence this is a
+                    hobby<br />
+                    project which may get sidelined by the more important
+                    things<br />
+                    in my inconsequential life.<br />
+                </h1>
+            </div>
+        </div>
+        <div id="projects" class="section">
+            <div>
+                <h1 class="t">Projects ~~~~~~</h1>
+                <h1 class="st">
+                    Here are some of the projects I've worked on:
+                </h1>
+                <div
+                    class="card"
+                    style="--bgImg: url(/media/bonfire.png)"
+                    data-url="https://bonfire.projectsly.online"
+                >
+                    <h1 class="st">Bonfire</h1>
+                    <h1 class="st"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerInner">
+                <h1 class="t" id="footer"></h1>
+                <h1 class="st">Contact:</h1>
+                <!-- In your footer section -->
+                <div class="discordWidget">
+                    <div class="discordCard">
+                        <div class="discordHeader">
+                            <img
+                                id="discordIcon"
+                                class="discordIcon"
+                                src="/media/projectsly.png"
+                                alt="Server Icon"
+                            />
+                            <div>
+                                <h2 class="st" id="discordName">projectSly</h2>
+                                <p class="st">
+                                    <span id="discordOnline">0</span> online
+                                </p>
+                                <a
+                                    id="discordInvite"
+                                    href="#"
+                                    target="_blank"
+                                    class="discordBtn"
+                                    >Join Server</a
+                                >
+                            </div>
+                        </div>
+                        <div id="discordMembers"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <script src="script.js"></script>

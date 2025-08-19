@@ -1,3 +1,4 @@
+/* Base */
 body,
 html {
     height: 100%;
@@ -6,45 +7,238 @@ html {
     padding: 0;
     color: white;
     background-color: black;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
         sans-serif;
+}
+
+* {
     box-sizing: border-box;
 }
 
 .t {
-    font-size: calc(28px + 8vw);
+    font-size: calc(28px + 4vw);
     font-family: monospace;
 }
-
 .st {
     font-size: calc(12px + 1.5vw);
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
 }
 
-.hero {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    overflow: hidden;
-}
-
-/* Fullscreen Matrix Canvas */
+/* Fullscreen Matrix Canvas - back layer */
 #matrixCanvas {
-    position: absolute;
+    position: fixed; /* pinned to viewport */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0; /* lowest layer */
 }
 
-/* Centered Text Layer */
+/* Hero container */
+.hero {
+    position: relative; /* create stacking context for children if needed */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* vertical stack */
+    align-items: center; /* center horizontally */
+    justify-content: center; /* center vertically */
+    overflow: hidden;
+    z-index: 1; /* above canvas (0) */
+}
+
+/* Centered text above canvas */
 #heroText {
     position: relative;
-    z-index: 2;
+    z-index: 2; /* above .hero background if any */
     text-align: center;
+}
+
+/* Sections above the matrix canvas */
+.section {
+    position: relative;
+    z-index: 1; /* above #matrixCanvas (0) */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background: rgb(15 28 255);
+    padding: 45px;
+}
+
+/* First section: fade from transparent to blue */
+#about.section {
+    background: linear-gradient(
+        to bottom,
+        rgba(41, 53, 255, 0) 0%,
+        rgb(15 28 255)
+    ) !important;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* stack children vertically */
+    justify-content: flex-start; /* let items start at top */
+    align-items: flex-start; /* adjust as desired: flex-start/center */
+    gap: 0.5rem; /* optional spacing between items */
+    /* existing styles */
+    width: calc(100vw - 100px);
+    padding: 30px;
+    border-radius: 15px;
+    min-height: 50vh;
+    color: white;
+    background: black;
+    overflow: hidden;
+    transition: all 500ms;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: 0;
+
+    background-image: var(--bgImg, none);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+    filter: blur(10px) saturate(120%);
+    opacity: 0.85;
+    transform: translateZ(0);
+}
+
+/* Ensure actual content sits above both layers */
+.card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.card > h1 {
+    margin-top: auto; /* takes remaining space above, sits at bottom */
+    margin-bottom: 0; /* optional: tighten bottom spacing */
+    align-self: stretch; /* optional: make it span full width */
+    /* remove the transform that was misaligning it */
+    text-align: center;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.card:hover {
+    scale: 1.05;
+    border: 5px solid dodgerblue;
+}
+
+.footer {
+    position: relative;
+    z-index: 1; /* above #matrixCanvas (0) */
+    width: 100%;
+    display: flex;
+    text-align: left;
+    justify-content: center;
+    min-height: 50vh;
+    background: linear-gradient(
+        to bottom,
+        rgb(15 28 255) 0%,
+        rgb(15, 28, 255, 0.7)
+    ) !important;
+    padding: 45px;
+}
+
+.footerInner {
+    width: 90%;
+}
+
+.discordWidget {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.discordCard {
+    background: black;
+    border: 2px solid dodgerblue;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 0 25px rgba(41, 53, 255, 0.6);
+    transition: all 0.3s;
+}
+
+.discordCard:hover {
+    scale: 1.02;
+    border-color: #00aaff;
+}
+
+.discordHeader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.discordIcon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid dodgerblue;
+    box-shadow: 0 0 15px rgba(41, 53, 255, 0.8);
+}
+
+.discordBtn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 18px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    background: dodgerblue;
+    color: black;
+    text-decoration: none;
+    font-family: monospace;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.discordBtn:hover {
+    background: #00aaff;
+    color: white;
+}
+
+/* Members preview grid */
+#discordMembers {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+#discordMembers img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #2935ff;
+    box-shadow: 0 0 10px rgba(41, 53, 255, 0.6);
 }
